@@ -1,4 +1,4 @@
-package dad.javafx.geofx.api;
+package dad.javafx.geofx.api.location;
 
 import java.util.HashMap;
 import java.util.Map;

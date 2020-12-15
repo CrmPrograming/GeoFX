@@ -110,7 +110,7 @@ public class MainController implements Initializable {
 			geoDatos.get().setIp(geoDatos.get().getIp());
 
 		// Sacamos datos de location
-		dad.javafx.geofx.api.Localizacion location = geoApiService.obtenerLocation(geoDatos.get().getIp());
+		dad.javafx.geofx.api.location.Localizacion location = geoApiService.obtenerLocation(geoDatos.get().getIp());
 		
 		geoDatos.get().getLocation().setLatitude(Double.valueOf(location.getLatitude()));
 		geoDatos.get().getLocation().setLongitude(Double.valueOf(location.getLongitude()));
@@ -122,6 +122,7 @@ public class MainController implements Initializable {
 		geoDatos.get().getLocation().setZipCode(Integer.valueOf(location.getZip()));
 		geoDatos.get().getLocation().setLanguage(location.getLocation().getLanguages().get(0).getName() + " (" + location.getCountryCode()  + ")");
 		
+		// Campo premium
 		if (location.getTimeZone() == null)
 			geoDatos.get().getLocation().setTimeZone("VERSIÓN PREMIUM");
 		else
@@ -129,11 +130,11 @@ public class MainController implements Initializable {
 		
 		geoDatos.get().getLocation().setCallingCode("+" + location.getLocation().getCallingCode());
 		
+		// Campo premium
 		if (location.getCurrency() == null)
 			geoDatos.get().getLocation().setCurrency("VERSIÓN PREMIUM");
 		else
 			geoDatos.get().getLocation().setCurrency(location.getCurrency().getName() + " (" + location.getCurrency().getSymbol() + ")");
-		
 	}
 
 	public BorderPane getView() {
