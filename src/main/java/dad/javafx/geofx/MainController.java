@@ -16,8 +16,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 
 public class MainController implements Initializable {
@@ -89,8 +92,11 @@ public class MainController implements Initializable {
 		try {
 			comprobarIP();
 		} catch (UnirestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Fallo en el intento de conexión a la api.");
+			alert.setContentText("Compruebe que la dirección IP es válida o está bien formada.");
+			alert.showAndWait();
 		}
 	}
 
@@ -109,6 +115,9 @@ public class MainController implements Initializable {
 		geoDatos.get().getLocation().setLatitude(Double.valueOf(location.getLatitude()));
 		geoDatos.get().getLocation().setLongitude(Double.valueOf(location.getLongitude()));
 		geoDatos.get().getLocation().setIpLocation(location.getCountryName() + " (" + location.getCountryCode() + ")");
+		
+		geoDatos.get().getLocation().setFlagIcon(new Image("/images/flags/64x42/" + location.getCountryCode() + ".png"));
+		
 		geoDatos.get().getLocation().setCityState(location.getCity() + " (" + location.getRegionName() + ")");
 		geoDatos.get().getLocation().setZipCode(Integer.valueOf(location.getZip()));
 		geoDatos.get().getLocation().setLanguage(location.getLocation().getLanguages().get(0).getName() + " (" + location.getCountryCode()  + ")");

@@ -74,7 +74,7 @@ public class LocationController implements Initializable {
 			Bindings.unbindBidirectional(lbLatitude.textProperty(), location.get().latitudeProperty());
 			Bindings.unbindBidirectional(lbLongitude.textProperty(), location.get().longitudeProperty());
 			lbFlag.textProperty().unbind();
-			// TODO: Unbind bandera
+			ivFlag.imageProperty().unbind();
 			lbCityState.textProperty().unbind();
 			Bindings.unbindBidirectional(lbZipCode.textProperty(), location.get().zipCodeProperty());
 			lbLanguage.textProperty().unbind();
@@ -87,7 +87,7 @@ public class LocationController implements Initializable {
 			Bindings.bindBidirectional(lbLatitude.textProperty(), location.get().latitudeProperty(), new NumberStringConverter("#.######"));
 			Bindings.bindBidirectional(lbLongitude.textProperty(), location.get().longitudeProperty(), new NumberStringConverter("#.######"));
 			lbFlag.textProperty().bind(location.get().ipLocationProperty());
-			// TODO: Cambiar bandera
+			ivFlag.imageProperty().bind(location.get().flagIconProperty());
 			lbCityState.textProperty().bind(location.get().cityStateProperty());
 			Bindings.bindBidirectional(lbZipCode.textProperty(), location.get().zipCodeProperty(), new NumberStringConverter("####"));
 			lbLanguage.textProperty().bind(location.get().languageProperty());
