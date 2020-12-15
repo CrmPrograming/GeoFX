@@ -37,7 +37,7 @@
                </image>
             </ImageView>
             <TextField fx:id="tfIP" />
-            <Button defaultButton="true" mnemonicParsing="false" text="Check IP" />
+            <Button fx:id="btCheckIp" defaultButton="true" mnemonicParsing="false" onAction="#onCheckIPAction" text="Check IP" />
          </children>
          <BorderPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
