@@ -7,7 +7,9 @@ import java.util.ResourceBundle;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import dad.javafx.geofx.api.GeoAPIService;
+import dad.javafx.geofx.api.clases_mapeo.Datos;
 import dad.javafx.geofx.controller.LocationController;
+import dad.javafx.geofx.controller.SecurityController;
 import dad.javafx.geofx.model.Geodatos;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -33,6 +35,7 @@ public class MainController implements Initializable {
 	// controller
 
 	private LocationController locationController = new LocationController();
+	private SecurityController securityController = new SecurityController();
 
 	// view
 
@@ -60,6 +63,7 @@ public class MainController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		tbLocation.setContent(locationController.getView());
+		tbSecurity.setContent(securityController.getView());
 
 		geoDatos.addListener((o, ov, nv) -> onGeoDatosChanged(o, ov, nv));
 
@@ -78,11 +82,13 @@ public class MainController implements Initializable {
 		if (ov != null) {
 			tfIP.textProperty().unbind();
 			locationController.locationProperty().unbind();
+			securityController.securityProperty().unbind();
 		}
 
 		if (nv != null) {
 			tfIP.textProperty().bindBidirectional(geoDatos.get().ipProperty());
 			locationController.locationProperty().bind(nv.locationProperty());
+			securityController.securityProperty().bind(nv.securityProperty());
 		}
 
 	}
@@ -110,31 +116,55 @@ public class MainController implements Initializable {
 			geoDatos.get().setIp(geoDatos.get().getIp());
 
 		// Sacamos datos de location
-		dad.javafx.geofx.api.location.Localizacion location = geoApiService.obtenerLocation(geoDatos.get().getIp());
+		Datos datos = geoApiService.obtenerLocation(geoDatos.get().getIp());
 		
-		geoDatos.get().getLocation().setLatitude(Double.valueOf(location.getLatitude()));
-		geoDatos.get().getLocation().setLongitude(Double.valueOf(location.getLongitude()));
-		geoDatos.get().getLocation().setIpLocation(location.getCountryName() + " (" + location.getCountryCode() + ")");
+		construirLocalizacion(datos);
+		construirSeguridad(datos);
+	}
+
+	private void construirSeguridad(Datos datos) {
+		if (datos.getSecurity() == null) {
+			geoDatos.get().getSecurity().setInfo("VERSIÓN PREMIUM");
+			geoDatos.get().getSecurity().setProxy(false);
+			geoDatos.get().getSecurity().setTor(false);
+			geoDatos.get().getSecurity().setCrawler(false);
+			geoDatos.get().getSecurity().setThreatLevel("VERSIÓN PREMIUM");
+			geoDatos.get().getSecurity().setPotentialThreats("VERSIÓN PREMIUM");
+			
+		} else {
+			geoDatos.get().getSecurity().setInfo((datos.getSecurity().getThreatLevel().equals(""))?"This IP is safe. No threats have been detected.":datos.getSecurity().getThreatLevel());
+			geoDatos.get().getSecurity().setProxy(datos.getSecurity().getIsProxy());
+			geoDatos.get().getSecurity().setTor(datos.getSecurity().getIsTor());
+			geoDatos.get().getSecurity().setCrawler(datos.getSecurity().getIsCrawler());
+			geoDatos.get().getSecurity().setThreatLevel(datos.getSecurity().getThreatLevel());
+			geoDatos.get().getSecurity().setPotentialThreats((datos.getSecurity().getThreatTypes() == null)?"No threats have been detected for this IP address.":datos.getSecurity().getThreatTypes().toString());
+		}
+	}
+
+	private void construirLocalizacion(dad.javafx.geofx.api.clases_mapeo.Datos datos) {
+		geoDatos.get().getLocation().setLatitude(Double.valueOf(datos.getLatitude()));
+		geoDatos.get().getLocation().setLongitude(Double.valueOf(datos.getLongitude()));
+		geoDatos.get().getLocation().setIpLocation(datos.getCountryName() + " (" + datos.getCountryCode() + ")");
 		
-		geoDatos.get().getLocation().setFlagIcon(new Image("/images/flags/64x42/" + location.getCountryCode() + ".png"));
+		geoDatos.get().getLocation().setFlagIcon(new Image("/images/flags/64x42/" + datos.getCountryCode() + ".png"));
 		
-		geoDatos.get().getLocation().setCityState(location.getCity() + " (" + location.getRegionName() + ")");
-		geoDatos.get().getLocation().setZipCode(Integer.valueOf(location.getZip()));
-		geoDatos.get().getLocation().setLanguage(location.getLocation().getLanguages().get(0).getName() + " (" + location.getCountryCode()  + ")");
+		geoDatos.get().getLocation().setCityState(datos.getCity() + " (" + datos.getRegionName() + ")");
+		geoDatos.get().getLocation().setZipCode(Integer.valueOf(datos.getZip()));
+		geoDatos.get().getLocation().setLanguage(datos.getLocation().getLanguages().get(0).getName() + " (" + datos.getCountryCode()  + ")");
 		
 		// Campo premium
-		if (location.getTimeZone() == null)
+		if (datos.getTimeZone() == null)
 			geoDatos.get().getLocation().setTimeZone("VERSIÓN PREMIUM");
 		else
-			geoDatos.get().getLocation().setTimeZone(location.getTimeZone().getCode());
+			geoDatos.get().getLocation().setTimeZone(datos.getTimeZone().getCode());
 		
-		geoDatos.get().getLocation().setCallingCode("+" + location.getLocation().getCallingCode());
+		geoDatos.get().getLocation().setCallingCode("+" + datos.getLocation().getCallingCode());
 		
 		// Campo premium
-		if (location.getCurrency() == null)
+		if (datos.getCurrency() == null)
 			geoDatos.get().getLocation().setCurrency("VERSIÓN PREMIUM");
 		else
-			geoDatos.get().getLocation().setCurrency(location.getCurrency().getName() + " (" + location.getCurrency().getSymbol() + ")");
+			geoDatos.get().getLocation().setCurrency(datos.getCurrency().getName() + " (" + datos.getCurrency().getSymbol() + ")");
 	}
 
 	public BorderPane getView() {

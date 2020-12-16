@@ -1,4 +1,4 @@
-package dad.javafx.geofx.api.location;
+package dad.javafx.geofx.api.clases_mapeo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,19 +10,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "code", "name", "plural", "symbol", "symbol_native" })
-public class Currency {
+@JsonPropertyOrder({ "code", "name", "native" })
+public class Language {
 
 	@JsonProperty("code")
 	private String code;
 	@JsonProperty("name")
 	private String name;
-	@JsonProperty("plural")
-	private String plural;
-	@JsonProperty("symbol")
-	private String symbol;
-	@JsonProperty("symbol_native")
-	private String symbolNative;
+	@JsonProperty("native")
+	private String _native;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -36,7 +32,7 @@ public class Currency {
 		this.code = code;
 	}
 
-	public Currency withCode(String code) {
+	public Language withCode(String code) {
 		this.code = code;
 		return this;
 	}
@@ -51,53 +47,23 @@ public class Currency {
 		this.name = name;
 	}
 
-	public Currency withName(String name) {
+	public Language withName(String name) {
 		this.name = name;
 		return this;
 	}
 
-	@JsonProperty("plural")
-	public String getPlural() {
-		return plural;
+	@JsonProperty("native")
+	public String getNative() {
+		return _native;
 	}
 
-	@JsonProperty("plural")
-	public void setPlural(String plural) {
-		this.plural = plural;
+	@JsonProperty("native")
+	public void setNative(String _native) {
+		this._native = _native;
 	}
 
-	public Currency withPlural(String plural) {
-		this.plural = plural;
-		return this;
-	}
-
-	@JsonProperty("symbol")
-	public String getSymbol() {
-		return symbol;
-	}
-
-	@JsonProperty("symbol")
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
-	}
-
-	public Currency withSymbol(String symbol) {
-		this.symbol = symbol;
-		return this;
-	}
-
-	@JsonProperty("symbol_native")
-	public String getSymbolNative() {
-		return symbolNative;
-	}
-
-	@JsonProperty("symbol_native")
-	public void setSymbolNative(String symbolNative) {
-		this.symbolNative = symbolNative;
-	}
-
-	public Currency withSymbolNative(String symbolNative) {
-		this.symbolNative = symbolNative;
+	public Language withNative(String _native) {
+		this._native = _native;
 		return this;
 	}
 
@@ -111,7 +77,7 @@ public class Currency {
 		this.additionalProperties.put(name, value);
 	}
 
-	public Currency withAdditionalProperty(String name, Object value) {
+	public Language withAdditionalProperty(String name, Object value) {
 		this.additionalProperties.put(name, value);
 		return this;
 	}

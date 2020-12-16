@@ -1,4 +1,4 @@
-package dad.javafx.geofx.api.location;
+package dad.javafx.geofx.api.clases_mapeo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,12 +10,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "ip", "type", "continent_code", "continent_name", "country_code", "country_name", "region_code",
-		"region_name", "city", "zip", "latitude", "longitude", "location", "time_zone", "currency", "connection" })
-public class Localizacion {
+@JsonPropertyOrder({ "ip", "hostname", "type", "continent_code", "continent_name", "country_code", "country_name",
+		"region_code", "region_name", "city", "zip", "latitude", "longitude", "location", "time_zone", "currency",
+		"connection", "security" })
+public class Datos {
 
 	@JsonProperty("ip")
 	private String ip;
+	@JsonProperty("hostname")
+	private String hostname;
 	@JsonProperty("type")
 	private String type;
 	@JsonProperty("continent_code")
@@ -46,6 +49,8 @@ public class Localizacion {
 	private Currency currency;
 	@JsonProperty("connection")
 	private Connection connection;
+	@JsonProperty("security")
+	private Security security;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -59,8 +64,23 @@ public class Localizacion {
 		this.ip = ip;
 	}
 
-	public Localizacion withIp(String ip) {
+	public Datos withIp(String ip) {
 		this.ip = ip;
+		return this;
+	}
+
+	@JsonProperty("hostname")
+	public String getHostname() {
+		return hostname;
+	}
+
+	@JsonProperty("hostname")
+	public void setHostname(String hostname) {
+		this.hostname = hostname;
+	}
+
+	public Datos withHostname(String hostname) {
+		this.hostname = hostname;
 		return this;
 	}
 
@@ -74,7 +94,7 @@ public class Localizacion {
 		this.type = type;
 	}
 
-	public Localizacion withType(String type) {
+	public Datos withType(String type) {
 		this.type = type;
 		return this;
 	}
@@ -89,7 +109,7 @@ public class Localizacion {
 		this.continentCode = continentCode;
 	}
 
-	public Localizacion withContinentCode(String continentCode) {
+	public Datos withContinentCode(String continentCode) {
 		this.continentCode = continentCode;
 		return this;
 	}
@@ -104,7 +124,7 @@ public class Localizacion {
 		this.continentName = continentName;
 	}
 
-	public Localizacion withContinentName(String continentName) {
+	public Datos withContinentName(String continentName) {
 		this.continentName = continentName;
 		return this;
 	}
@@ -119,7 +139,7 @@ public class Localizacion {
 		this.countryCode = countryCode;
 	}
 
-	public Localizacion withCountryCode(String countryCode) {
+	public Datos withCountryCode(String countryCode) {
 		this.countryCode = countryCode;
 		return this;
 	}
@@ -134,7 +154,7 @@ public class Localizacion {
 		this.countryName = countryName;
 	}
 
-	public Localizacion withCountryName(String countryName) {
+	public Datos withCountryName(String countryName) {
 		this.countryName = countryName;
 		return this;
 	}
@@ -149,7 +169,7 @@ public class Localizacion {
 		this.regionCode = regionCode;
 	}
 
-	public Localizacion withRegionCode(String regionCode) {
+	public Datos withRegionCode(String regionCode) {
 		this.regionCode = regionCode;
 		return this;
 	}
@@ -164,7 +184,7 @@ public class Localizacion {
 		this.regionName = regionName;
 	}
 
-	public Localizacion withRegionName(String regionName) {
+	public Datos withRegionName(String regionName) {
 		this.regionName = regionName;
 		return this;
 	}
@@ -179,7 +199,7 @@ public class Localizacion {
 		this.city = city;
 	}
 
-	public Localizacion withCity(String city) {
+	public Datos withCity(String city) {
 		this.city = city;
 		return this;
 	}
@@ -194,7 +214,7 @@ public class Localizacion {
 		this.zip = zip;
 	}
 
-	public Localizacion withZip(String zip) {
+	public Datos withZip(String zip) {
 		this.zip = zip;
 		return this;
 	}
@@ -209,7 +229,7 @@ public class Localizacion {
 		this.latitude = latitude;
 	}
 
-	public Localizacion withLatitude(Double latitude) {
+	public Datos withLatitude(Double latitude) {
 		this.latitude = latitude;
 		return this;
 	}
@@ -224,7 +244,7 @@ public class Localizacion {
 		this.longitude = longitude;
 	}
 
-	public Localizacion withLongitude(Double longitude) {
+	public Datos withLongitude(Double longitude) {
 		this.longitude = longitude;
 		return this;
 	}
@@ -239,7 +259,7 @@ public class Localizacion {
 		this.location = location;
 	}
 
-	public Localizacion withLocation(Location location) {
+	public Datos withLocation(Location location) {
 		this.location = location;
 		return this;
 	}
@@ -254,7 +274,7 @@ public class Localizacion {
 		this.timeZone = timeZone;
 	}
 
-	public Localizacion withTimeZone(TimeZone timeZone) {
+	public Datos withTimeZone(TimeZone timeZone) {
 		this.timeZone = timeZone;
 		return this;
 	}
@@ -269,7 +289,7 @@ public class Localizacion {
 		this.currency = currency;
 	}
 
-	public Localizacion withCurrency(Currency currency) {
+	public Datos withCurrency(Currency currency) {
 		this.currency = currency;
 		return this;
 	}
@@ -284,8 +304,23 @@ public class Localizacion {
 		this.connection = connection;
 	}
 
-	public Localizacion withConnection(Connection connection) {
+	public Datos withConnection(Connection connection) {
 		this.connection = connection;
+		return this;
+	}
+
+	@JsonProperty("security")
+	public Security getSecurity() {
+		return security;
+	}
+
+	@JsonProperty("security")
+	public void setSecurity(Security security) {
+		this.security = security;
+	}
+
+	public Datos withSecurity(Security security) {
+		this.security = security;
 		return this;
 	}
 
@@ -299,7 +334,7 @@ public class Localizacion {
 		this.additionalProperties.put(name, value);
 	}
 
-	public Localizacion withAdditionalProperty(String name, Object value) {
+	public Datos withAdditionalProperty(String name, Object value) {
 		this.additionalProperties.put(name, value);
 		return this;
 	}

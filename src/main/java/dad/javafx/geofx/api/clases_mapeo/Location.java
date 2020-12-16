@@ -1,4 +1,4 @@
-package dad.javafx.geofx.api.location;
+package dad.javafx.geofx.api.clases_mapeo;
 
 import java.util.HashMap;
 import java.util.List;

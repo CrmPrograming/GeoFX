@@ -3,7 +3,7 @@ package dad.javafx.geofx.api;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import dad.javafx.geofx.api.location.Localizacion;
+import dad.javafx.geofx.api.clases_mapeo.Datos;
 
 public class GeoAPIService {
 
@@ -17,12 +17,12 @@ public class GeoAPIService {
 		return Unirest.get("https://api.ipify.org?format=json").asObject(IP.class).getBody();
 	}
 
-	public Localizacion obtenerLocation(String ipDestino) throws UnirestException {
+	public Datos obtenerLocation(String ipDestino) throws UnirestException {
 		return Unirest.get(
 				"http://api.ipapi.com/{ip_destino}?access_key={access_key}&hostname=1&security=1")
 				.routeParam("access_key", API_KEY)
 				.routeParam("ip_destino", ipDestino)
-				.asObject(Localizacion.class).getBody();
+				.asObject(Datos.class).getBody();
 	}
 
 }
