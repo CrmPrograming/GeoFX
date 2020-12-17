@@ -71,12 +71,12 @@ public class LocationController implements Initializable {
 
 	private void onLocationChanged(ObservableValue<? extends Location> o, Location ov, Location nv) {
 		if (ov != null) {
-			Bindings.unbindBidirectional(lbLatitude.textProperty(), location.get().latitudeProperty());
-			Bindings.unbindBidirectional(lbLongitude.textProperty(), location.get().longitudeProperty());
+			Bindings.unbindBidirectional(lbLatitude.textProperty(), ov.latitudeProperty());
+			Bindings.unbindBidirectional(lbLongitude.textProperty(), ov.longitudeProperty());
 			lbFlag.textProperty().unbind();
 			ivFlag.imageProperty().unbind();
 			lbCityState.textProperty().unbind();
-			Bindings.unbindBidirectional(lbZipCode.textProperty(), location.get().zipCodeProperty());
+			Bindings.unbindBidirectional(lbZipCode.textProperty(), ov.zipCodeProperty());
 			lbLanguage.textProperty().unbind();
 			lbTimeZone.textProperty().unbind();
 			lbCallingCode.textProperty().unbind();
@@ -84,16 +84,16 @@ public class LocationController implements Initializable {
 		}
 		
 		if (nv != null) {
-			Bindings.bindBidirectional(lbLatitude.textProperty(), location.get().latitudeProperty(), new NumberStringConverter("#.######"));
-			Bindings.bindBidirectional(lbLongitude.textProperty(), location.get().longitudeProperty(), new NumberStringConverter("#.######"));
-			lbFlag.textProperty().bind(location.get().ipLocationProperty());
-			ivFlag.imageProperty().bind(location.get().flagIconProperty());
-			lbCityState.textProperty().bind(location.get().cityStateProperty());
-			Bindings.bindBidirectional(lbZipCode.textProperty(), location.get().zipCodeProperty(), new NumberStringConverter("####"));
-			lbLanguage.textProperty().bind(location.get().languageProperty());
-			lbTimeZone.textProperty().bind(location.get().timeZoneProperty());
-			lbCallingCode.textProperty().bind(location.get().callingCodeProperty());
-			lbCurrency.textProperty().bind(location.get().currencyProperty());
+			Bindings.bindBidirectional(lbLatitude.textProperty(), nv.latitudeProperty(), new NumberStringConverter("#.######"));
+			Bindings.bindBidirectional(lbLongitude.textProperty(), nv.longitudeProperty(), new NumberStringConverter("#.######"));
+			lbFlag.textProperty().bind(nv.ipLocationProperty());
+			ivFlag.imageProperty().bind(nv.flagIconProperty());
+			lbCityState.textProperty().bind(nv.cityStateProperty());
+			Bindings.bindBidirectional(lbZipCode.textProperty(), nv.zipCodeProperty(), new NumberStringConverter("####"));
+			lbLanguage.textProperty().bind(nv.languageProperty());
+			lbTimeZone.textProperty().bind(nv.timeZoneProperty());
+			lbCallingCode.textProperty().bind(nv.callingCodeProperty());
+			lbCurrency.textProperty().bind(nv.currencyProperty());
 		}
 	}
 

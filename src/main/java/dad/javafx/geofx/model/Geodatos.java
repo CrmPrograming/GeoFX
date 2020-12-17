@@ -9,6 +9,7 @@ public class Geodatos {
 
 	private StringProperty ip = new SimpleStringProperty();
 	private ObjectProperty<Location> location = new SimpleObjectProperty<>(new Location());
+	private ObjectProperty<Connection> connection = new SimpleObjectProperty<>(new Connection());
 	private ObjectProperty<Security> security = new SimpleObjectProperty<>(new Security());
 
 	public final StringProperty ipProperty() {
@@ -33,6 +34,18 @@ public class Geodatos {
 
 	public final void setLocation(final Location location) {
 		this.locationProperty().set(location);
+	}
+
+	public final ObjectProperty<Connection> connectionProperty() {
+		return this.connection;
+	}
+
+	public final Connection getConnection() {
+		return this.connectionProperty().get();
+	}
+
+	public final void setConnection(final Connection connection) {
+		this.connectionProperty().set(connection);
 	}
 
 	public final ObjectProperty<Security> securityProperty() {

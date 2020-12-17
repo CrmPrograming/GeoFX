@@ -66,12 +66,12 @@ public class SecurityController implements Initializable {
 		}
 		
 		if (nv != null) {
-			lbInfo.textProperty().bind(security.get().infoProperty());
-			cbProxy.selectedProperty().bind(security.get().proxyProperty());
-			cbTor.selectedProperty().bind(security.get().torProperty());
-			cbCrawler.selectedProperty().bind(security.get().crawlerProperty());
-			lbThreatLevel.textProperty().bind(security.get().threatLevelProperty());
-			lbPotentialThreat.textProperty().bind(security.get().potentialThreatsProperty());
+			lbInfo.textProperty().bind(nv.infoProperty());
+			cbProxy.selectedProperty().bind(nv.proxyProperty());
+			cbTor.selectedProperty().bind(nv.torProperty());
+			cbCrawler.selectedProperty().bind(nv.crawlerProperty());
+			lbThreatLevel.textProperty().bind(nv.threatLevelProperty());
+			lbPotentialThreat.textProperty().bind(nv.potentialThreatsProperty());
 		}
 	}
 
