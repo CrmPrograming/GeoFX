@@ -175,10 +175,13 @@ public class MainController implements Initializable {
 			geoDatos.get().getSecurity().setThreatLevel("VERSIÓN PREMIUM");
 			geoDatos.get().getSecurity().setPotentialThreats("VERSIÓN PREMIUM");
 		} else {
-			geoDatos.get().getSecurity()
-					.setInfo((datos.getSecurity().getThreatLevel().equals(""))
-							? "This IP is safe. No threats have been detected."
-							: datos.getSecurity().getThreatLevel());
+			
+			if (datos.getSecurity().getThreatLevel().equals("low")) {
+				geoDatos.get().getSecurity().setInfo("This IP is safe. No threats have been detected.");
+			} else {
+				geoDatos.get().getSecurity().setInfo("This IP is not safe. Some threats have been detected.");
+			}			
+			
 			geoDatos.get().getSecurity().setProxy(datos.getSecurity().getIsProxy());
 			geoDatos.get().getSecurity().setTor(datos.getSecurity().getIsTor());
 			geoDatos.get().getSecurity().setCrawler(datos.getSecurity().getIsCrawler());
